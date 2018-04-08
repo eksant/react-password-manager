@@ -1,3 +1,3 @@
 export const GET_LOADING = 'GET_LOADING';
-export const GET_USERS = 'GET_USERS';
+export const GET_USER_BYUSERNAME = 'GET_USER_BYUSERNAME';
 export const GET_ERROR = 'GET_ERROR';

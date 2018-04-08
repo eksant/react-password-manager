@@ -16,6 +16,7 @@ class Sidebar extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.activeRoute = this.activeRoute.bind(this);
     this.hideMobile = this.hideMobile.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
 
@@ -40,6 +41,11 @@ class Sidebar extends Component {
   // secondLevelActive(routeName) {
   //   return this.props.location.pathname.indexOf(routeName) > -1 ? "nav nav-second-level collapse in" : "nav nav-second-level collapse";
   // }
+
+  handleLogout() {
+    localStorage.clear()
+    this.props.history.push('/login')
+  }
 
 
   render() {
@@ -152,6 +158,9 @@ class Sidebar extends Component {
         <nav className="sidebar-nav">
           <Nav>
             {navList(nav.items)}
+            <NavLink to="" className="nav-link" activeClassName="" onClick={this.handleLogout}>
+              <i className="icon-close"></i>Logout
+            </NavLink>
           </Nav>
         </nav>
         <SidebarFooter/>

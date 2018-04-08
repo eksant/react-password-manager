@@ -1,6 +1,6 @@
 import { 
   GET_LOADING, 
-  GET_USERS, 
+  GET_USER_BYUSERNAME, 
   GET_ERROR
 } from './users.actionType';
 
@@ -18,7 +18,7 @@ const reducers = (state = {...initialState}, action) => {
         ...state,
         loading: true,
       }
-    case GET_USERS:
+    case GET_USER_BYUSERNAME:
       // console.log('reducers GET_PASSPORTALS: ', action.payload)
       return {
         ...state,

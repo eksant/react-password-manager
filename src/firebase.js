@@ -12,3 +12,4 @@ var config = {
 
 firebase.initializeApp(config);
 export const passportals = firebase.firestore().collection('passportals');
+export const users = firebase.firestore().collection('users');

@@ -1,7 +1,7 @@
 import { users } from '../../firebase';
 import { 
   GET_LOADING, 
-  GET_USERS,
+  GET_USER_BYUSERNAME,
   GET_ERROR
 } from './users.actionType';
 
@@ -14,7 +14,7 @@ const GetError = (payload) => ({
 });
 
 const GetUserByUsername = (payload) => ({
-  type: GET_PASSPORTAL_BYID,
+  type: GET_USER_BYUSERNAME,
   payload: payload,
 });
 
@@ -22,8 +22,8 @@ export function CreateUser(payload) {
   return dispatch => {
     dispatch(GetLoading())
     try {
-      // console.log('actions CreatePassportal', payload)
-      passportals.add({
+      // console.log('actions CreateUser', payload)
+      users.add({
         ...payload,
         createdAt: new Date(Date.now()).toLocaleString(),
         updatedAt: ''
@@ -34,25 +34,26 @@ export function CreateUser(payload) {
   }
 };
 
-export function ReadUserByUsername(username) {
+export function ReadUserByUsername(username, password) {
+  // console.log('ReadUserByUsername username, password', username, password)
   return dispatch => {
-    // console.log('ReadPassportalById', id)
     dispatch(GetLoading())
-    passportals.get()
+    users.get()
     .then(QuerySnapshot => {
-      // console.log('ReadPassportalById QuerySnapshot', QuerySnapshot)
+      // console.log('ReadUserByUsername QuerySnapshot', QuerySnapshot)
       let result = {}
       QuerySnapshot.forEach(currentItem => {
-        // console.log('ReadPassportalById currentItem', currentItem.id)
-        if (currentItem.id === id) {
+        let data = currentItem.data()
+        // console.log('ReadUserByUsername data', data)
+        if (data.username === username && data.password === password) {
           result = {
-            ...currentItem.data(),
+            ...data,
             id: currentItem.id
           }
         }
       })
-      // console.log('ReadPassportalById result', result)
-      dispatch(GetPassportalById(result))
+      console.log('ReadUserByUsername result', result)
+      dispatch(GetUserByUsername(result))
     })
     .catch(err => {
       dispatch(GetError(err))
