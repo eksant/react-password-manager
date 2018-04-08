@@ -1,0 +1,6 @@
+{
+  "name": "Passportal",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Passportal.js"
+}
