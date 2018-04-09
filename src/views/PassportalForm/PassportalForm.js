@@ -43,19 +43,6 @@ class PassportalForm extends Component {
       [event.target.name]: event.target.value
     })
   }
-
-  handleEdit(data) {
-    const passportal = this.props.passportals.data;
-    // console.log('handleEdit event', data)
-    // console.log('handleEdit passportal', passportal)
-    this.setState({
-      id: data.id,
-      URL: data.URL,
-      username: data.username,
-      password: data.password,
-      title: 'Edit'
-    })
-  }
   
   handleSubmit(event) {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&-])[A-Za-z\d$@$!%*#?&]{8,}$/;
@@ -98,8 +85,30 @@ class PassportalForm extends Component {
       });
     }
   }
+
+  handleEdit(data) {
+    console.log('handleEdit event', data)
+    // const passportal = this.props.passportals.data;
+    // console.log('handleEdit passportal', passportal)
+    this.setState({
+      id: data.id,
+      URL: data.URL,
+      username: data.username,
+      password: data.password,
+      title: 'Edit'
+    })
+  }
   
-  componentWillMount() {
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('shouldComponentUpdate nextState', this.state, nextState)
+  //   if (this.state.URL !== nextState.URL) {
+  //     console.log('masuk shouldComponentUpdate')
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  componentDidMount() {
     // console.log('first run component mount')
     if (this.props.match.params.id) {
       // console.log('params', this.props.match.params.id)
@@ -118,10 +127,9 @@ class PassportalForm extends Component {
 
   render() {
     const passportal = this.props.passportals.data;
+    console.log('render passportal', passportal);
     if (passportal.URL !== undefined) {
-      // console.log('render passportal', passportal);
       () => this.handleEdit(passportal)
-      // console.log('resl', resl)
     }
     // console.log('render state', this.state)
     return (

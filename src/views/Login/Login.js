@@ -104,7 +104,7 @@ class Login extends Component {
             }
           }
         })
-        console.log('result', result)
+        // console.log('result', result)
         if (result) {
           // this.props.ReadUserByUsername(this.state.username, this.state.password)
           localStorage.setItem('user', result.username)

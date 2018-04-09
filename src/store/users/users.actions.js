@@ -52,7 +52,7 @@ export function ReadUserByUsername(username, password) {
           }
         }
       })
-      console.log('ReadUserByUsername result', result)
+      // console.log('ReadUserByUsername result', result)
       dispatch(GetUserByUsername(result))
     })
     .catch(err => {
