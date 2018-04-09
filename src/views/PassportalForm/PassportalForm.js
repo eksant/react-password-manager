@@ -46,8 +46,8 @@ class PassportalForm extends Component {
 
   handleEdit(data) {
     const passportal = this.props.passportals.data;
-    console.log('handleEdit event', data)
-    console.log('handleEdit passportal', passportal)
+    // console.log('handleEdit event', data)
+    // console.log('handleEdit passportal', passportal)
     this.setState({
       id: data.id,
       URL: data.URL,
@@ -100,7 +100,7 @@ class PassportalForm extends Component {
   }
   
   componentWillMount() {
-    console.log('first run component mount')
+    // console.log('first run component mount')
     if (this.props.match.params.id) {
       // console.log('params', this.props.match.params.id)
       this.props.ReadPassportalById(this.props.match.params.id)
@@ -119,11 +119,11 @@ class PassportalForm extends Component {
   render() {
     const passportal = this.props.passportals.data;
     if (passportal.URL !== undefined) {
-      console.log('render passportal', passportal);
+      // console.log('render passportal', passportal);
       () => this.handleEdit(passportal)
       // console.log('resl', resl)
     }
-    console.log('render state', this.state)
+    // console.log('render state', this.state)
     return (
       <div className="animated fadeIn">
         <Row>

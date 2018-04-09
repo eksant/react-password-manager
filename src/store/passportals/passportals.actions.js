@@ -31,6 +31,7 @@ export function CreatePassportal(payload) {
       // console.log('actions CreatePassportal', payload)
       passportals.add({
         ...payload,
+        userId: localStorage.getItem('userid'),
         createdAt: new Date(Date.now()).toLocaleString(),
         updatedAt: ''
       })
@@ -48,11 +49,14 @@ export function ReadPassportals() {
       // console.log('QuerySnapshot', QuerySnapshot)
       let result = [];
       QuerySnapshot.forEach(currentItem => {
-        // console.log('QuerySnapshot forEach', currentItem.data())
-        result.push({
-          ...currentItem.data(),
-          id: currentItem.id
-        })
+        let data = currentItem.data()
+        // console.log('QuerySnapshot data', data)
+        if (data.userId === localStorage.getItem('userid')) {
+          result.push({
+            ...currentItem.data(),
+            id: currentItem.id
+          })
+        }
       })
       // console.log('actions ReadPassportals', result)
       dispatch(GetPassportals(result))

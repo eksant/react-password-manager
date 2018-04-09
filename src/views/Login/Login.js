@@ -108,6 +108,7 @@ class Login extends Component {
         if (result) {
           // this.props.ReadUserByUsername(this.state.username, this.state.password)
           localStorage.setItem('user', result.username)
+          localStorage.setItem('userid', result.id)
           this.props.history.push('/dashboard')
         } else {
           notification['warning']({
