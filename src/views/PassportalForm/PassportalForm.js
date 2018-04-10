@@ -73,23 +73,15 @@ class PassportalForm extends Component {
         description: 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters !!',
       });
     } else {      
-      console.log('this state data', this.state)
-      let data = {
-        URL: this.state.URL,
-        username: this.state.username,
-        password: this.state.password,
-        createdAt: this.state.createdAt,
-        updatedAt: this.state.updatedAt
-      }
-
+      // console.log('this state data', this.state)
       if (!this.state.isEdit) {
-        // let data = {
-        //   URL: this.state.URL,
-        //   username: this.state.username,
-        //   password: this.state.password,
-        //   updatedAt: this.state.updatedAt
-        // }
-        
+        let data = {
+          URL: this.state.URL,
+          username: this.state.username,
+          password: this.state.password,
+          // createdAt: this.state.createdAt
+        }
+
         this.props.CreatePassportal(data)
         event.target.reset()
         this.props.history.push('/passportal')
@@ -98,7 +90,14 @@ class PassportalForm extends Component {
           description: 'Success to insert new record',
         });
       } else {
-        
+        let data = {
+          URL: this.state.URL,
+          username: this.state.username,
+          password: this.state.password,
+          createdAt: new Date(Date.now()).toLocaleString(),
+          updatedAt: new Date(Date.now()).toLocaleString(),
+          userId: localStorage.getItem('userid')
+        }
 
         this.props.UpdatePassportal(this.state.id, data)
         // event.target.reset()
