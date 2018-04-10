@@ -87,7 +87,7 @@ class Passportal extends Component {
                         </div>
                       </th>
                       <th>Create At</th>
-                      <th>Updated At</th>
+                      {/* <th>Updated At</th> */}
                       <th>Actions</th>
                     </tr>
                     </thead>
@@ -99,7 +99,7 @@ class Passportal extends Component {
                             <td>{passportal.username}</td>
                             { this.state.showPassword ? (<td>{passportal.password}</td>) : (<td>{passportal.password.replace(/./g, "≎")}</td>) }
                             <td>{passportal.createdAt}</td>
-                            <td>{passportal.updatedAt}</td>
+                            {/* <td>{passportal.updatedAt}</td> */}
                             <td>
                               <Button onClick={() => this.loadPassportalForm(passportal.id)} className="btn btn-outline-primary btn-sm"><i className="icon-note"></i></Button>
                               <Button onClick={() => showConfirm(passportal.id, this.props)} className="btn btn-outline-danger btn-sm"><i className="icon-trash"></i></Button>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { notification } from 'antd';
-import { CreatePassportal, ReadPassportalById } from "../../store/passportals/passportals.actions";
+import { CreatePassportal, ReadPassportalById, UpdatePassportal } from "../../store/passportals/passportals.actions";
 import {
   Row,
   Col,
@@ -29,7 +29,10 @@ class PassportalForm extends Component {
       URL: '',
       username: '',
       password: '',
-      title: 'Add New'
+      createdAt: '',
+      updatedAt: '',
+      title: 'Add New',
+      isEdit: false
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -70,68 +73,76 @@ class PassportalForm extends Component {
         description: 'Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters !!',
       });
     } else {      
+      console.log('this state data', this.state)
       let data = {
         URL: this.state.URL,
         username: this.state.username,
-        password: this.state.password
+        password: this.state.password,
+        createdAt: this.state.createdAt,
+        updatedAt: this.state.updatedAt
       }
-      // console.log('data', data)
-      this.props.CreatePassportal(data)
-      event.target.reset()
-      this.props.history.push('/passportal')
-      notification['success']({
-        message: 'Notification Success',
-        description: 'Success to insert new record',
-      });
+
+      if (!this.state.isEdit) {
+        // let data = {
+        //   URL: this.state.URL,
+        //   username: this.state.username,
+        //   password: this.state.password,
+        //   updatedAt: this.state.updatedAt
+        // }
+        
+        this.props.CreatePassportal(data)
+        event.target.reset()
+        this.props.history.push('/passportal')
+        notification['success']({
+          message: 'Notification Success',
+          description: 'Success to insert new record',
+        });
+      } else {
+        
+
+        this.props.UpdatePassportal(this.state.id, data)
+        // event.target.reset()
+        this.props.history.push('/passportal')
+        notification['success']({
+          message: 'Notification Success',
+          description: 'Success to edit record',
+        });
+      }
     }
   }
 
   handleEdit(data) {
-    console.log('handleEdit event', data)
-    // const passportal = this.props.passportals.data;
+    // console.log('handleEdit event', data)
     // console.log('handleEdit passportal', passportal)
     this.setState({
       id: data.id,
       URL: data.URL,
       username: data.username,
       password: data.password,
-      title: 'Edit'
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt,
+      title: 'Edit',
+      isEdit: true
     })
   }
-  
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('shouldComponentUpdate nextState', this.state, nextState)
-  //   if (this.state.URL !== nextState.URL) {
-  //     console.log('masuk shouldComponentUpdate')
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
-  componentDidMount() {
-    // console.log('first run component mount')
+  componentWillMount() {
     if (this.props.match.params.id) {
-      // console.log('params', this.props.match.params.id)
+      // console.log('componentWillMount id', this.props.match.params.id)
       this.props.ReadPassportalById(this.props.match.params.id)
-      // console.log('componentDidMount data', this.props.passportals.data) 
+    }
+  }
+
+  componentWillReceiveProps() {
+    if (this.props.passportals.data) {
+      // console.log('componentWillReceiveProps', this.props.passportals)
       this.handleEdit(this.props.passportals.data)
     }
-
-    // this.props.history.listen((location, action) => {
-    //   console.log('check location url')
-    //   if (location.pathname.split('/')[2] === 'edit') {
-    //     console.log('update this state')
-    //   }
-    // })
   }
 
   render() {
     const passportal = this.props.passportals.data;
-    console.log('render passportal', passportal);
-    if (passportal.URL !== undefined) {
-      () => this.handleEdit(passportal)
-    }
-    // console.log('render state', this.state)
+
     return (
       <div className="animated fadeIn">
         <Row>
@@ -191,7 +202,8 @@ const mapStateToProps = (state) => ({
 const mapDispacthToProps = (dispatch) => (
   bindActionCreators({
     CreatePassportal,
-    ReadPassportalById
+    ReadPassportalById,
+    UpdatePassportal
   }, dispatch)
 );
 

@@ -76,11 +76,12 @@ export function ReadPassportalById(id) {
       // console.log('ReadPassportalById QuerySnapshot', QuerySnapshot)
       let result = {}
       QuerySnapshot.forEach(currentItem => {
-        // console.log('ReadPassportalById currentItem', currentItem.id)
+        console.log('ReadPassportalById currentItem', currentItem.data())
         if (currentItem.id === id) {
           result = {
             ...currentItem.data(),
-            id: currentItem.id
+            id: currentItem.id,
+            createdAt: currentItem.createdAt
           }
         }
       })
@@ -95,6 +96,7 @@ export function ReadPassportalById(id) {
 
 export function UpdatePassportal(id, payload) {
   return dispatch => {
+    console.log('actions UpdatePassportal', id, payload)
     dispatch(GetLoading())
     try {
       passportals.doc(id).set(payload)
